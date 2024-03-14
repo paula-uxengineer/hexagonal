@@ -1,5 +1,6 @@
-export interface ITarea {
+export interface ITask {
   id: number;
-  titulo: string;
-  descripcion: string;
+  title: string;
+  description: string;
+  completed: boolean;
 }

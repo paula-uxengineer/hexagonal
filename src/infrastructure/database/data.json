@@ -1,0 +1,7 @@
+{
+  "tasks": [
+    { "id": 1, "text": "study TypeScript", "completed": true },
+    { "id": 2, "text": "study TypeScript", "completed": false }
+  ],
+  "indice": 3
+}
