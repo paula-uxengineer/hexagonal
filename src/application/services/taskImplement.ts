@@ -1,12 +1,14 @@
-import { PersistenceData } from '../../infrastructure/database/persistence-data';
-import { ITask } from '../../repositories/taskRepo';
-import { ITasks } from '../../repositories/tasksRepo';
+import { ITask } from '../../domain/interfaces/taskRepo';
+import { ITasks } from '../../domain/interfaces/tasklmplementRepo';
+import { PersistenceData } from '../../infrastructure/services/persistence-data';
 
-export class AllTasks extends PersistenceData implements ITasks {
+export class TaskImplement extends PersistenceData implements ITasks {
+  // following SOLID principles, privatizing listTasks improves encapsulation and abstraction.
   private listTasks: ITask[];
 
   constructor() {
     super();
+    // load tasks from file (data.json) when creating an instance of TaskImplement
     this.listTasks = this.loadTasksFromFile(
       '../../infrastructure/database/data.json'
     );
@@ -17,7 +19,7 @@ export class AllTasks extends PersistenceData implements ITasks {
   }
 
   async getTaskById(id: number): Promise<ITask | null> {
-    return this.listTasks.find((task) => task.id === id) || null;
+    return this.listTasks.find((task: ITask) => task.id === id) || null;
   }
 
   async addTask(task: ITask): Promise<void> {
