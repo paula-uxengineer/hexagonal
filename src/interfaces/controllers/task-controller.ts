@@ -40,6 +40,10 @@ export class TaskController {
   deleteTask = async (req: Request, res: Response): Promise<void> => {
     const taskId = parseInt(req.params.id);
     await this.taskImplement.deleteTask(taskId);
-    res.status(204).send('Task deleted');
+    if (!taskId) {
+      res.status(404).send('Task not found');
+    } else {
+      res.status(204).send('Task deleted');
+    }
   };
 }

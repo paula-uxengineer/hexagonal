@@ -33,7 +33,10 @@ export class TaskImplement extends PersistenceData implements ITasks {
     }
   }
 
-  async deleteTask(id: number): Promise<void> {
-    this.dataJson.tasks = this.dataJson.tasks.filter((task) => task.id !== id);
+  async deleteTask(id: number): Promise<ITask[]> {
+    const list = this.dataJson.tasks.filter((task) => task.id !== id);
+    this.dataJson.tasks = list;
+    this.saveTasksToFile(this.dataJson);
+    return this.dataJson.tasks;
   }
 }

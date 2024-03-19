@@ -1,27 +1,23 @@
-import { ITask } from '../../domain/interfaces/taskRepo';
+import { IJson } from '../../domain/interfaces/taskRepo';
 import { IData } from '../../application/dtos/dataRepo';
 import fs from 'fs';
 
 export class PersistenceData implements IData {
-  saveTasksToFile(tasks: ITask[]) {
+  saveTasksToFile(dataObject: IJson) {
     fs.writeFile(
-      '/src/infrastructure/database/data.json',
-      JSON.stringify(tasks),
+      './src/infrastructure/database/data.json',
+      JSON.stringify(dataObject),
       'utf-8',
       (error) => {
-        if (error) {
-          console.error('Error saving tasks:', error);
-        } else {
-          console.log('Tasks saved.');
-        }
+        if (error) console.error('Error saving tasks:', error);
       }
     );
   }
 
   loadTasksFromFile(route: string) {
     const data = fs.readFileSync(route, 'utf-8');
-    const tasks = JSON.parse(data);
+    const taskObject = JSON.parse(data);
 
-    return tasks;
+    return taskObject;
   }
 }
