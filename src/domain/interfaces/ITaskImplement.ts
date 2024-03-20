@@ -1,6 +1,6 @@
-import { ITask } from './taskRepo';
+import { ITask } from './ITask';
 
-export interface ITasks {
+export interface ITaskImplement {
   getAllTasks(): Promise<ITask[]>;
   getTaskById(id: number): Promise<ITask | null>;
   addTask(task: ITask): Promise<void>;

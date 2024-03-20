@@ -5,6 +5,6 @@ export const cacheControlMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  res.setHeader('Cache-Control', 'no-cache');
-  next();
+  res.setHeader('Cache-Control', 'no-cache'); //browsers or clients cannot cache the response
+  next(); //move to the next middleware or route handler
 };

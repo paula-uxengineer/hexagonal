@@ -3,8 +3,3 @@ export interface ITask {
   description: string;
   completed: boolean;
 }
-
-export interface IJson {
-  tasks: ITask[];
-  index: number;
-}

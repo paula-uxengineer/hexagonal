@@ -1,4 +1,4 @@
-import { IJson } from '../../domain/interfaces/taskRepo';
+import { IJson } from '../../domain/interfaces/IJson';
 
 export interface IData {
   saveTasksToFile(dataObject: IJson): void;

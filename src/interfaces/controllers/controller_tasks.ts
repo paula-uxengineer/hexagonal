@@ -10,14 +10,14 @@ export class TaskController {
 
   getAllTasks = async (req: Request, res: Response): Promise<void> => {
     const tasks = await this.taskImplement.getAllTasks();
-    res.json(tasks); //responds with the data.json
+    res.json(tasks); //responds with the database -> data.json
   };
 
   getTaskById = async (req: Request, res: Response): Promise<void> => {
     const taskId = parseInt(req.params.id);
     const task = await this.taskImplement.getTaskById(taskId);
     if (task) {
-      res.json(task);
+      res.json(task); //responds with the database -> data.json
     } else {
       res.status(404).send('Task not found');
     }

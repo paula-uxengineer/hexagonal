@@ -1,8 +1,9 @@
-import { IJson, ITask } from '../../domain/interfaces/taskRepo';
-import { ITasks } from '../../domain/interfaces/tasklmplementRepo';
+import { ITask } from '../../domain/interfaces/ITask';
+import { IJson } from "../../domain/interfaces/IJson";
+import { ITaskImplement } from '../../domain/interfaces/ITaskImplement';
 import { PersistenceData } from '../../infrastructure/services/persistence-data';
 
-export class TaskImplement extends PersistenceData implements ITasks {
+export class TaskImplement extends PersistenceData implements ITaskImplement {
   // following SOLID principles, privatizing listTasks improves encapsulation and abstraction.
   private dataJson: IJson;
 

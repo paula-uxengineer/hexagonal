@@ -1,4 +1,4 @@
-import { ITask } from '../interfaces/taskRepo';
+import { ITask } from '../interfaces/ITask';
 
 export class Task implements ITask {
   id: number;

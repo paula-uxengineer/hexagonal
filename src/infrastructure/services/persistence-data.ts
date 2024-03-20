@@ -1,5 +1,5 @@
-import { IJson } from '../../domain/interfaces/taskRepo';
-import { IData } from '../../application/dtos/dataRepo';
+import { IJson } from "../../domain/interfaces/IJson";
+import { IData } from '../repositories/IData';
 import fs from 'fs';
 
 export class PersistenceData implements IData {
