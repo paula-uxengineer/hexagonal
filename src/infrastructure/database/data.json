@@ -1,7 +1,82 @@
 {
   "tasks": [
-    { "id": 1, "description": "study TypeScript", "completed": true },
-    { "id": 2, "description": "study TypeScript", "completed": false }
+    [
+      {
+        "id": 1,
+        "description": "Implement login function with two-factor authentication",
+        "completed": false
+      },
+      {
+        "id": 2,
+        "description": "Optimize sorting algorithm performance",
+        "completed": false
+      },
+      {
+        "id": 3,
+        "description": "Resolve database errors related to data structure",
+        "completed": false
+      },
+      {
+        "id": 4,
+        "description": "Add input validations to user forms",
+        "completed": true
+      },
+      {
+        "id": 5,
+        "description": "Update project documentation",
+        "completed": false
+      },
+      {
+        "id": 6,
+        "description": "Fix CSS layout issues on the homepage",
+        "completed": false
+      },
+      {
+        "id": 7,
+        "description": "Create API endpoints for user profile management",
+        "completed": false
+      },
+      {
+        "id": 8,
+        "description": "Implement error logging mechanism",
+        "completed": false
+      },
+      {
+        "id": 9,
+        "description": "Refactor code for better modularity",
+        "completed": false
+      },
+      {
+        "id": 10,
+        "description": "Fix memory leak issues in the backend",
+        "completed": false
+      },
+      {
+        "id": 11,
+        "description": "Upgrade third-party libraries to latest versions",
+        "completed": false
+      },
+      {
+        "id": 12,
+        "description": "Write unit tests for critical functions",
+        "completed": false
+      },
+      {
+        "id": 13,
+        "description": "Implement feature toggle functionality",
+        "completed": false
+      },
+      {
+        "id": 14,
+        "description": "Design and implement user dashboard UI",
+        "completed": false
+      },
+      {
+        "id": 15,
+        "description": "Deploy application to production server",
+        "completed": false
+      }
+    ]
   ],
   "index": 3
 }

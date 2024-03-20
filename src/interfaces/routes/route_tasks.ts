@@ -1,21 +1,51 @@
 import express from 'express';
-import { loggingMiddleware, cacheControlMiddleware, corsMiddleware, authMiddleware } from '../middlewares'
-import { TaskController } from '../controllers/task-controller';
-
+import {
+  cacheControlMiddleware,
+  corsMiddleware,
+  authMiddleware
+} from '../middlewares';
+import { TaskController } from '../controllers/controller_tasks';
 
 const app = express();
 const router = express.Router();
+
 const taskController = new TaskController();
 
-app.use(express.json());
-app.use(loggingMiddleware);
+//declaration of middlewares
 app.use(cacheControlMiddleware);
 app.use(corsMiddleware);
+app.use(authMiddleware);
 
-router.get('/tasks', authMiddleware, taskController.getAllTasks); //now when access to get info from database requires authorization
-router.get('/tasks/:id', authMiddleware, taskController.getTaskById); //now when access to get info from database requires authorization
-router.post('/tasks', taskController.addTask);
-router.put('/tasks/:id', taskController.updateTask);
-router.delete('/tasks/:id', taskController.deleteTask);
+//routes and aplication of middlewares
+router.get(
+  '/tasks',
+  corsMiddleware,
+  cacheControlMiddleware,
+  taskController.getAllTasks
+);
+router.get(
+  '/tasks/:id',
+  corsMiddleware,
+  cacheControlMiddleware,
+  taskController.getTaskById
+);
+router.post(
+  '/tasks',
+  corsMiddleware,
+  cacheControlMiddleware,
+  taskController.addTask
+); //no caching when add a task
+router.put(
+  '/tasks/:id',
+  corsMiddleware,
+  cacheControlMiddleware,
+  taskController.updateTask
+);
+router.delete(
+  '/tasks/:id',
+  corsMiddleware,
+  cacheControlMiddleware,
+  taskController.deleteTask
+); // when delete a task from database requires authorization
 
 export default router;
