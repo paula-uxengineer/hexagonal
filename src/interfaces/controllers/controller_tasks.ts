@@ -17,8 +17,8 @@ export class TaskController {
   getTaskById = async (req: Request, res: Response): Promise<void> => {
     const taskId = parseInt(req.params.id);
 
-    console.log(taskId);
     const task = await this.taskImplement.getTaskById(taskId);
+    console.log(taskId);
     if (task) {
       res.json(task); //responds with the database -> data.json
     } else {
