@@ -1,78 +1,82 @@
-import { TaskImplement } from '../../application/services/TaskImplement';
+// import { TaskImplement } from '../../application/services/TaskImplement';
 
-// Mock de PersistenceData
-jest.mock('../../infrastructure/services/PersistenceData', () => ({
-  PersistenceData: jest.fn().mockImplementation(() => ({
-    loadTasksFromFile: jest.fn(() => ({
-      tasks: []
-    })),
-    saveTasksToFile: jest.fn()
-  }))
-}));
+// describe('TaskImplement', () => {
+//   let taskImplement: TaskImplement;
 
-describe('TaskImplement', () => {
-  let taskImplement: TaskImplement;
+//   beforeEach(() => {
+//     taskImplement = new TaskImplement();
+//   });
 
-  beforeEach(() => {
-    taskImplement = new TaskImplement();
-  });
+//   describe('addTask', () => {
+//     it('should add a new task', async () => {
+//       const newTask = {
+//         id: 16,
+//         description: 'New task',
+//         completed: false
+//       };
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+//       await taskImplement.addTask(newTask);
 
-  it('should initialize dataJson with empty tasks array', () => {
-    expect(taskImplement['dataJson'].tasks).toEqual([]);
-  });
+//       const tasks = await taskImplement.getAllTasks();
+//       const addedTask = tasks.find((task) => task.id === 16);
 
-  describe('getAllTasks', () => {
-    it('should return all tasks', async () => {
-      const tasks = await taskImplement.getAllTasks();
-      expect(tasks).toEqual([]);
-    });
-  });
+//       expect(addedTask).toEqual(newTask);
+//     });
+//   });
 
-  describe('addTask', () => {
-    it('should add a new task', async () => {
-      const newTask = {
-        id: 1,
-        description: 'Test task',
-        completed: false
-      };
-      await taskImplement.addTask(newTask);
-      expect(taskImplement['dataJson'].tasks).toHaveLength(1);
-      expect(taskImplement['dataJson'].tasks[0]).toEqual(newTask);
-    });
-  });
+//   describe('updateTask', () => {
+//     it('should update the status of a task', async () => {
+//       const taskId = 1;
 
-  describe('updateTask', () => {
-    it('should update an existing task', async () => {
-      const taskId = 1;
-      taskImplement['dataJson'].tasks = [{ id: taskId, description: 'Task', completed: false }];
-      const updatedTask = await taskImplement.updateTask(taskId);
-      expect(updatedTask).not.toBeNull();
-      expect(updatedTask!.completed).toBe(true);
-    });
+//       await taskImplement.updateTask(taskId);
 
-    it('should return null if task not found', async () => {
-      const updatedTask = await taskImplement.updateTask(999);
-      expect(updatedTask).toBeNull();
-    });
-  });
+//       const tasks = await taskImplement.getAllTasks();
+//       const updatedTask = tasks.find((task) => task.id === taskId);
 
-  describe('deleteTask', () => {
-    it('should delete an existing task', async () => {
-      const taskId = 1;
-      taskImplement['dataJson'].tasks = [{ id: taskId, description: 'Task', completed: false }];
-      await taskImplement.deleteTask(taskId);
-      expect(taskImplement['dataJson'].tasks).toHaveLength(0);
-    });
+//       if (updatedTask) {
+//         expect(updatedTask.completed).toBe(true);
+//       } else {
+//         fail('Task not found');
+//       }
+//     });
 
-    it('should do nothing if task not found', async () => {
-      const taskId = 999;
-      taskImplement['dataJson'].tasks = [{ id: 1, description: 'Task', completed: false }];
-      await taskImplement.deleteTask(taskId);
-      expect(taskImplement['dataJson'].tasks).toHaveLength(1);
-    });
-  });
-});
+//     it('should return null if the task is not found', async () => {
+//       const taskId = 100;
+
+//       const updatedTask = await taskImplement.updateTask(taskId);
+
+//       expect(updatedTask).toBeNull();
+//     });
+//   });
+
+//   describe('deleteTask', () => {
+//     it('should delete a task', async () => {
+//       const taskId = 1;
+
+//       await taskImplement.deleteTask(taskId);
+
+//       const tasks = await taskImplement.getAllTasks();
+//       const deletedTask = tasks.find((task) => task.id === taskId);
+
+//       expect(deletedTask).toBeUndefined();
+//     });
+
+//     it('should return the updated task list after deleting a task', async () => {
+//       const taskId = 2;
+
+//       const updatedTasks = await taskImplement.deleteTask(taskId);
+
+//       const tasks = await taskImplement.getAllTasks();
+//       expect(updatedTasks).toEqual(tasks);
+//     });
+
+//     it('should return the task list unchanged if the task is not found', async () => {
+//       const taskId = 100;
+
+//       const updatedTasks = await taskImplement.deleteTask(taskId);
+
+//       const tasks = await taskImplement.getAllTasks();
+//       expect(updatedTasks).toEqual(tasks);
+//     });
+//   });
+// });

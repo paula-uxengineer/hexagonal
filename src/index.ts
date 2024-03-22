@@ -9,7 +9,7 @@ const app = express();
 const port = 3000;
 
 //router for routes
-app.use('/home', taskRouter);
+app.use('/home/', taskRouter);
 app.use('/home/login', loginRouter);
 
 //middlewares

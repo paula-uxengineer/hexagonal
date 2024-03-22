@@ -17,14 +17,16 @@ export class TaskImplement extends PersistenceData implements ITaskImplement {
     return this.dataJson.tasks;
   }
 
-  async addTask(task: ITask): Promise<void> {
+  async addTask(task: ITask): Promise<TaskDTO> {
     const newTask: ITask = {
       id: task.id,
       description: task.description,
       completed: false
     };
+
     this.dataJson.tasks.push(newTask);
     this.saveTasksToFile(this.dataJson);
+    return this.dataJson;
   }
 
   async updateTask(taskId: number): Promise<ITask | null> {

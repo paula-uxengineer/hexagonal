@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { TaskImplement } from '../../application/services/TaskImplement';
 import { ITask } from '../../domain/interfaces/ITask';
+
 export class TaskController {
   private taskImplement: TaskImplement;
 
@@ -12,6 +13,7 @@ export class TaskController {
     try {
       const tasks: ITask[] = await this.taskImplement.getAllTasks();
       res.status(200).json(tasks);
+      console.log(tasks);
     } catch (error) {
       res.status(500).send('Error retrieving tasks.');
     }
@@ -21,7 +23,11 @@ export class TaskController {
     try {
       const taskData: ITask = req.body;
       await this.taskImplement.addTask(taskData);
-      res.status(201).json(this.taskImplement.getAllTasks());
+      res.status(201).json({
+        status: 'success',
+        message: 'Task added successfully',
+        task: taskData
+      });
     } catch (error) {
       res.status(500).send('Error adding task.');
     }
