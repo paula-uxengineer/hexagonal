@@ -1,11 +1,10 @@
 import express from 'express';
-import { Request, Response } from 'express';
+import { LoginController } from '../controllers/controller_login';
 import { authMiddleware } from '../middlewares/middleware_auth';
 
-const app = express();
+const loginRouter = express.Router();
+const loginController = new LoginController();
 
-app.use(authMiddleware);
+loginRouter.post('/', authMiddleware, loginController.login);
 
-app.get('/login', authMiddleware, (req: Request, res: Response) => {
-  res.status(200).send('authoritzed for login');
-});
+export default loginRouter;

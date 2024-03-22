@@ -5,7 +5,7 @@ export const corsMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); //allow access from any origin, this avoids access problems from the front-end with another localhost
+  res.setHeader('Access-Control-Allow-Origin', '*'); //allow access from any origin, this avoids access problems from the front-end with another localhost, change the * for the route from front-end
   res.setHeader(
     /**
      * Indicates which header type CORS allows:
