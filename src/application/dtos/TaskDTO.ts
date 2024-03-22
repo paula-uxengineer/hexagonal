@@ -1,6 +1,5 @@
 import { ITask } from '../../domain/interfaces/ITask';
 
-export interface IJson {
+export interface TaskDTO {
   tasks: ITask[];
-  index: number;
 }

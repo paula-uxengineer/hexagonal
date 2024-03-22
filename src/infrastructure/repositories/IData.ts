@@ -1,6 +1,6 @@
-import { ITask } from '../../domain/interfaces/ITask';
+import { TaskDTO } from '../../application/dtos/TaskDTO';
 
 export interface IData {
-  saveTasksToFile(dataObject: ITask[]): void;
-  loadTasksFromFile(filename: string): void;
+  saveTasksToFile(dataObject: TaskDTO): void;
+  loadTasksFromFile(filename: string): TaskDTO;
 }

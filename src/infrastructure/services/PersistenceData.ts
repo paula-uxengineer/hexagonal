@@ -1,9 +1,9 @@
-import { ITask } from '../../domain/interfaces/ITask';
+import { TaskDTO } from '../../application/dtos/TaskDTO';
 import { IData } from '../repositories/IData';
 import fs from 'fs';
 
 export class PersistenceData implements IData {
-  saveTasksToFile(dataObject: ITask[]) {
+  saveTasksToFile(dataObject: TaskDTO) {
     fs.writeFile(
       './src/infrastructure/database/data.json',
       JSON.stringify(dataObject),
@@ -14,9 +14,9 @@ export class PersistenceData implements IData {
     );
   }
 
-  loadTasksFromFile(route: string) {
+  loadTasksFromFile(route: string): TaskDTO {
     const data = fs.readFileSync(route, 'utf-8');
-    const taskObject = JSON.parse(data);
+    const taskObject: TaskDTO = JSON.parse(data);
 
     return taskObject;
   }

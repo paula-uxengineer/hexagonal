@@ -1,9 +1,10 @@
 import { ITask } from '../../domain/interfaces/ITask';
+import { TaskDTO } from '../../application/dtos/TaskDTO';
 import { PersistenceData } from '../../infrastructure/services/PersistenceData';
 import { ITaskImplement } from '../../domain/interfaces/ITaskImplement';
 
 export class TaskImplement extends PersistenceData implements ITaskImplement {
-  private dataJson: ITask[];
+  private dataJson: TaskDTO;
 
   constructor() {
     super();
@@ -13,7 +14,7 @@ export class TaskImplement extends PersistenceData implements ITaskImplement {
   }
 
   async getAllTasks(): Promise<ITask[]> {
-    return this.dataJson;
+    return this.dataJson.tasks;
   }
 
   async addTask(task: ITask): Promise<void> {
@@ -22,16 +23,18 @@ export class TaskImplement extends PersistenceData implements ITaskImplement {
       description: task.description,
       completed: false
     };
-    this.dataJson.push(newTask);
+    this.dataJson.tasks.push(newTask);
     this.saveTasksToFile(this.dataJson);
   }
 
   async updateTask(taskId: number): Promise<ITask | null> {
-    const taskIndex = this.dataJson.findIndex((task) => task.id === taskId);
+    const taskIndex = this.dataJson.tasks.findIndex(
+      (task) => task.id === taskId
+    );
     if (taskIndex !== -1) {
-      const task = this.dataJson[taskIndex];
+      const task = this.dataJson.tasks[taskIndex];
       task.completed = true;
-      this.dataJson[taskIndex] = task;
+      this.dataJson.tasks[taskIndex] = task;
       this.saveTasksToFile(this.dataJson);
       return task;
     }
@@ -39,11 +42,11 @@ export class TaskImplement extends PersistenceData implements ITaskImplement {
   }
 
   async deleteTask(id: number): Promise<ITask[]> {
-    const index = this.dataJson.findIndex((task) => task.id === id);
+    const index = this.dataJson.tasks.findIndex((task) => task.id === id);
     if (index !== -1) {
-      this.dataJson.splice(index, 1);
+      this.dataJson.tasks.splice(index, 1);
       this.saveTasksToFile(this.dataJson);
     }
-    return this.dataJson;
+    return this.dataJson.tasks;
   }
 }
