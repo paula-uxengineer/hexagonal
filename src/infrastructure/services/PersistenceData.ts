@@ -1,9 +1,9 @@
-import { IJson } from '../../application/dtos/IJson';
+import { ITask } from '../../domain/interfaces/ITask';
 import { IData } from '../repositories/IData';
 import fs from 'fs';
 
 export class PersistenceData implements IData {
-  saveTasksToFile(dataObject: IJson) {
+  saveTasksToFile(dataObject: ITask[]) {
     fs.writeFile(
       './src/infrastructure/database/data.json',
       JSON.stringify(dataObject),

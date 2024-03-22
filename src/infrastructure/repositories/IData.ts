@@ -1,6 +1,6 @@
-import { IJson } from '../../application/dtos/IJson';
+import { ITask } from '../../domain/interfaces/ITask';
 
 export interface IData {
-  saveTasksToFile(dataObject: IJson): void;
+  saveTasksToFile(dataObject: ITask[]): void;
   loadTasksFromFile(filename: string): void;
 }

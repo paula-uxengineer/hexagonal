@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { TaskImplement } from '../../application/services/TaskImplement';
+import { ITask } from '../../domain/interfaces/ITask';
 export class TaskController {
   private taskImplement: TaskImplement;
 
@@ -8,46 +9,63 @@ export class TaskController {
   }
 
   getAllTasks = async (req: Request, res: Response): Promise<void> => {
-    const tasks = await this.taskImplement.getAllTasks();
-
-    res.json(tasks);
-  };
-
-  getTaskById = async (req: Request, res: Response): Promise<void> => {
-    const taskId = parseInt(req.params.id);
-
-    const task = await this.taskImplement.getTaskById(taskId);
-    console.log(taskId);
-    if (task) {
-      res.json(task); //responds with the database -> data.json
-    } else {
-      res.status(404).send('Task not found');
+    try {
+      const tasks: ITask[] = await this.taskImplement.getAllTasks();
+      res.status(200).json(tasks);
+    } catch (error) {
+      res.status(500).send('Error retrieving tasks.');
     }
   };
 
   addTask = async (req: Request, res: Response): Promise<void> => {
-    const task = req.body;
-    await this.taskImplement.addTask(task);
-    res.status(201).send('Task added');
+    try {
+      const taskData: ITask = req.body;
+      await this.taskImplement.addTask(taskData);
+      res.status(201).json(this.taskImplement.getAllTasks());
+    } catch (error) {
+      res.status(500).send('Error adding task.');
+    }
   };
 
   updateTask = async (req: Request, res: Response): Promise<void> => {
     const taskId = parseInt(req.params.id);
-    const updatedTask = req.body;
-    updatedTask.id = taskId;
-    await this.taskImplement.updateTask(updatedTask);
-    res.status(204).send('Taks updated');
+
+    try {
+      const updatedTask = await this.taskImplement.updateTask(taskId);
+      if (updatedTask) {
+        res.status(200).json({
+          status: 'success',
+          message: 'Task updated successfully',
+          updatedTask: updatedTask,
+          tasks: await this.taskImplement.getAllTasks()
+        });
+      } else {
+        res.status(404).json({
+          status: 'error',
+          message: 'Task not found.'
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        status: 'error',
+        message: 'Error updating task.'
+      });
+    }
   };
 
   deleteTask = async (req: Request, res: Response): Promise<void> => {
     const taskId = parseInt(req.params.id);
 
-    await this.taskImplement.deleteTask(taskId);
+    try {
+      const remainingTasks = await this.taskImplement.deleteTask(taskId);
 
-    if (!taskId) {
-      res.status(404).send('Task not found');
-    } else {
-      res.status(204).send('Task deleted');
+      if (remainingTasks.length === 0) {
+        res.status(404).send('Task not found');
+      } else {
+        res.status(204).send('Task deleted');
+      }
+    } catch (error) {
+      res.status(500).send('Error deleting task.');
     }
   };
 }

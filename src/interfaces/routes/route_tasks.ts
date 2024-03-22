@@ -20,18 +20,14 @@ router.get(
   cacheControlMiddleware,
   taskController.getAllTasks
 );
-router.get(
-  '/tasks/:id',
-  // corsMiddleware,
-  // cacheControlMiddleware,
-  taskController.getTaskById
-);
+
 router.post(
   '/tasks',
   corsMiddleware,
   cacheControlMiddleware,
   taskController.addTask
-); //no caching when add a task
+); //no caching when add a tasks
+
 router.put(
   '/tasks/:id',
   corsMiddleware,

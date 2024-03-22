@@ -1,43 +1,49 @@
 import { ITask } from '../../domain/interfaces/ITask';
-import { IJson } from '../dtos/IJson';
-import { ITaskImplement } from '../../domain/interfaces/ITaskImplement';
 import { PersistenceData } from '../../infrastructure/services/PersistenceData';
+import { ITaskImplement } from '../../domain/interfaces/ITaskImplement';
 
 export class TaskImplement extends PersistenceData implements ITaskImplement {
-  // following SOLID principles, privatizing listTasks improves encapsulation and abstraction.
-  private dataJson: IJson;
+  private dataJson: ITask[];
 
   constructor() {
     super();
-    // load tasks from file (data.json) when creating an instance of TaskImplement
     this.dataJson = this.loadTasksFromFile(
       './src/infrastructure/database/data.json'
     );
   }
 
   async getAllTasks(): Promise<ITask[]> {
-    return this.dataJson.tasks;
-  }
-
-  async getTaskById(id: number): Promise<ITask | null> {
-    return this.dataJson.tasks.find((task: ITask) => task.id === id) || null;
+    return this.dataJson;
   }
 
   async addTask(task: ITask): Promise<void> {
-    this.dataJson.tasks.push(task);
+    const newTask: ITask = {
+      id: task.id,
+      description: task.description,
+      completed: false
+    };
+    this.dataJson.push(newTask);
+    this.saveTasksToFile(this.dataJson);
   }
 
-  async updateTask(task: ITask): Promise<void> {
-    const index = this.dataJson.tasks.findIndex((t) => t.id === task.id);
-    if (index !== -1) {
-      this.dataJson.tasks[index] = task;
+  async updateTask(taskId: number): Promise<ITask | null> {
+    const taskIndex = this.dataJson.findIndex((task) => task.id === taskId);
+    if (taskIndex !== -1) {
+      const task = this.dataJson[taskIndex];
+      task.completed = true;
+      this.dataJson[taskIndex] = task;
+      this.saveTasksToFile(this.dataJson);
+      return task;
     }
+    return null;
   }
 
   async deleteTask(id: number): Promise<ITask[]> {
-    const list = this.dataJson.tasks.filter((task) => task.id !== id);
-    this.dataJson.tasks = list;
-    this.saveTasksToFile(this.dataJson);
-    return this.dataJson.tasks;
+    const index = this.dataJson.findIndex((task) => task.id === id);
+    if (index !== -1) {
+      this.dataJson.splice(index, 1);
+      this.saveTasksToFile(this.dataJson);
+    }
+    return this.dataJson;
   }
 }
