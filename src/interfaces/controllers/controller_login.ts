@@ -8,7 +8,7 @@ export class LoginController {
         .status(200)
         .json({ message: 'Login successful', token: 'your-access-token' });
     } else {
-      res.status(401).json({ error: 'Invalid username or password' });
+      res.status(401).send('Unauthorized');
     }
   };
 }

@@ -22,6 +22,7 @@ export class TaskController {
   addTask = async (req: Request, res: Response): Promise<void> => {
     try {
       const taskData: ITask = req.body;
+      console.log('ert', taskData);
       await this.taskImplement.addTask(taskData);
       res.status(201).json({
         status: 'success',
@@ -42,8 +43,7 @@ export class TaskController {
         res.status(200).json({
           status: 'success',
           message: 'Task updated successfully',
-          updatedTask: updatedTask,
-          tasks: await this.taskImplement.getAllTasks()
+          updatedTask: updatedTask
         });
       } else {
         res.status(404).json({
@@ -63,12 +63,13 @@ export class TaskController {
     const taskId = parseInt(req.params.id);
 
     try {
-      const remainingTasks = await this.taskImplement.deleteTask(taskId);
-
-      if (remainingTasks.length === 0) {
+      const remainingTasks: ITask = await this.taskImplement.deleteTask(taskId);
+      // console.log('as', remainingTasks);
+      if (!remainingTasks) {
         res.status(404).send('Task not found');
       } else {
-        res.status(204).send('Task deleted');
+        res.status(202).send(['Data Deleted:', remainingTasks]);
+        // res.status(204).send('Task deleted');
       }
     } catch (error) {
       res.status(500).send('Error deleting task.');

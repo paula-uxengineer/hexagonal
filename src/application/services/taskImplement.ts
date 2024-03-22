@@ -14,6 +14,7 @@ export class TaskImplement extends PersistenceData implements ITaskImplement {
   }
 
   async getAllTasks(): Promise<ITask[]> {
+    // console.log(this.dataJson);
     return this.dataJson.tasks;
   }
 
@@ -43,12 +44,13 @@ export class TaskImplement extends PersistenceData implements ITaskImplement {
     return null;
   }
 
-  async deleteTask(id: number): Promise<ITask[]> {
+  async deleteTask(id: number): Promise<ITask> {
     const index = this.dataJson.tasks.findIndex((task) => task.id === id);
+    const dataDeleted = this.dataJson.tasks[index];
     if (index !== -1) {
       this.dataJson.tasks.splice(index, 1);
       this.saveTasksToFile(this.dataJson);
     }
-    return this.dataJson.tasks;
+    return dataDeleted;
   }
 }

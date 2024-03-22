@@ -5,5 +5,5 @@ export interface ITaskImplement {
   getAllTasks(): Promise<ITask[]>;
   addTask(task: ITask): Promise<TaskDTO>;
   updateTask(taskId: number): Promise<ITask | null>;
-  deleteTask(id: number): Promise<ITask[]>;
+  deleteTask(id: number): Promise<ITask>;
 }
