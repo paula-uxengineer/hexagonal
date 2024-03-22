@@ -97,3 +97,5 @@ en el archivo .vscode/launch.json está la configuración del debugger.
 ---
 
 - interfaces Este directorio contiene los controladores, rutas y middlewares de la aplicación. Los controladores manejan las solicitudes HTTP y delegan el trabajo a los servicios de aplicación. Las rutas definen las rutas HTTP de tu aplicación. Los middlewares son funciones que tienen acceso al objeto de solicitud, al objeto de respuesta y al siguiente middleware en el ciclo de solicitud/respuesta de la aplicación.
+
+

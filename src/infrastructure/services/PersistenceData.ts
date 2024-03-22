@@ -1,4 +1,4 @@
-import { IJson } from "../../domain/interfaces/IJson";
+import { IJson } from '../../application/dtos/IJson';
 import { IData } from '../repositories/IData';
 import fs from 'fs';
 

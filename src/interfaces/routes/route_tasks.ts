@@ -3,15 +3,15 @@ import { cacheControlMiddleware } from '../middlewares/middleware_cache-control'
 import { corsMiddleware } from '../middlewares/middleware_cors';
 import { TaskController } from '../controllers/controller_tasks';
 
-const app = express();
+// const app = express();
 const router = express.Router();
 
 const taskController = new TaskController();
 
 //declaration of middlewares
-app.use(express.json());
-app.use(cacheControlMiddleware);
-app.use(corsMiddleware);
+// app.use(express.json());
+// app.use(cacheControlMiddleware);
+// app.use(corsMiddleware);
 
 //routes and aplication of middlewares
 router.get(
@@ -22,8 +22,8 @@ router.get(
 );
 router.get(
   '/tasks/:id',
-  corsMiddleware,
-  cacheControlMiddleware,
+  // corsMiddleware,
+  // cacheControlMiddleware,
   taskController.getTaskById
 );
 router.post(

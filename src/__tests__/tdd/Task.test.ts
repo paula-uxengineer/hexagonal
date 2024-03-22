@@ -1,4 +1,4 @@
-import { Task } from '../../domain/entities/task';
+import { Task } from '../../domain/entities/Task';
 
 describe('Tarea', () => {
   it('should create a new Tarea instance', () => {

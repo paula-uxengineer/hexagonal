@@ -1,4 +1,4 @@
-import { ITask } from './ITask';
+import { ITask } from '../../domain/interfaces/ITask';
 
 export interface IJson {
   tasks: ITask[];

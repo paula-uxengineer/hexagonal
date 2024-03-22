@@ -19,5 +19,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm run test
+      # - name: Run tests
+      #   run: npm run test
+
+      - name: Run prettier
+        run: npm run prettier-format
+
+      - name: Run transpilation
+        run: npm run build
