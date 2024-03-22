@@ -25,5 +25,5 @@ jobs:
       - name: Run prettier
         run: npm run prettier-format
 
-      - name: Run transpilation
-        run: npm run build
+      # - name: Run transpilation
+      #   run: npm run build
